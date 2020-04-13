@@ -36,11 +36,11 @@ public class sqlite {
      * @param name 名字（单引号大概要处理成 '' 就可以避免错误了吧
      * @param credits 积分
      */
-    public void insertsql(String uid, String name, String credits) {
+    public void insertsql(int uid, String name, int credits) {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
         StringBuilder sql = new StringBuilder("INSERT INTO MCBBS VALUES(");
         sql.append(uid).append(",");
-        sql.append(name).append(",");
+        sql.append("\"").append(name).append("\"").append(",");
         sql.append(credits).append(");");
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
@@ -73,6 +73,11 @@ public class sqlite {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 获取目前的进度
+     * @return 返回爬取到的 uid
+     */
     public int getUid(){
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
