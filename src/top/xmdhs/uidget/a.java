@@ -15,10 +15,10 @@ public class a {
 }
 
 class papapa extends Thread{
-    private String uid;
-    private String start;
-    private String end;
-    private int time;
+    private final String uid;
+    private final String start;
+    private final String end;
+    private final int time;
     sqlite s = new sqlite();
     public papapa(String uid,String start,String end,int time){
         this.uid = uid;

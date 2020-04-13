@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 
 public class http {
-    private URL url;
+    private final URL url;
     public http(URL url){
         this.url = url;
     }
@@ -61,11 +61,10 @@ public class http {
  * 用于处理 json
  */
 class uidapi{
-    public String Version;
     public variables Variables;
-      class variables{
+      static class variables{
           public Space space;
-          class Space{
+          static class Space{
               public int uid;
               public String username;
               public int credits;
@@ -82,7 +81,7 @@ class uidapi{
               public int posts;
               public int threads;
               public Group group;
-              class Group{
+              static class Group{
                   public String grouptitle;
               }
               public int friends;
