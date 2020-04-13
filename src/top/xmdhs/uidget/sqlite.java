@@ -34,6 +34,7 @@ public class sqlite {
                     "views INT," +
                     "adminid INT," +
                     "emailstatus INT," +
+                    "grouptitle TEXT," +
                     "extgroupids TEXT)";
             stmt.executeUpdate(sql);
             stmt.close();
@@ -52,7 +53,8 @@ public class sqlite {
      */
     public void insertsql(int uid, String name, int credits,int extcredits1,int extcredits2,
         int extcredits3,int extcredits4,int extcredits5,int extcredits6,int extcredits7,int extcredits8,
-                          int oltime,int groupid,int posts,int threads,int friends,int views,int adminid,int emailstatus,String extgroupids) {
+                          int oltime,int groupid,int posts,int threads,int friends,int views,int adminid,
+                          int emailstatus,String grouptitle,String extgroupids) {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
         StringBuilder sql = new StringBuilder("INSERT INTO MCBBS VALUES(");
         sql.append(uid).append(",");
@@ -74,7 +76,8 @@ public class sqlite {
         sql.append(views).append(",");
         sql.append(adminid).append(",");
         sql.append(emailstatus).append(",");
-        sql.append("\"").append(extgroupids).append("\"").append(");");
+        sql.append("'").append(grouptitle).append("'").append(",");
+        sql.append("'").append(extgroupids).append("'").append(");");
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
