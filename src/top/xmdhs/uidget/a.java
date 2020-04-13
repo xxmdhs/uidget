@@ -13,13 +13,13 @@ public class a {
             int i = s.getUid(uid);
             if (i == -1) {
                 s.creatSql(uid);
-                s.insertsql(Integer.parseInt(uid),start,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"0");
+                s.insertsql(Integer.parseInt(uid),"0",Integer.parseInt(start),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,"0");
             }
             try {
                 while (i <= Integer.parseInt(end)) {
                     Thread.sleep(250);
                     i = s.getUid(uid);
-                    URL url = new URL("https://www.mcbbs.net//api/mobile/index.php?module=profile&uid=" + i);
+                    URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
                     http h = new http(url);
                     if (h.json2Class(h.getJson()).Integer == 1) {
                         System.out.println("网络似乎有什么问题");
