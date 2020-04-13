@@ -3,7 +3,7 @@ package top.xmdhs.uidget;
 import java.net.URL;
 
 public class a {
-
+//TODO 增加多线程支持
     public static void main(String[] args) {
         String uid = args[0];
         String start = args[1];
