@@ -14,12 +14,13 @@ public class a {
             }
             try {
                 while (i <= end) {
-                    Thread.sleep(500);
+                    Thread.sleep(250);
                     i = s.getUid();
-                    URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
+                    URL url = new URL("https://www.mcbbs.net//api/mobile/index.php?module=profile&uid=" + i);
                     http h = new http(url);
                     if (h.json2Class(h.getJson()).Integer == 1) {
                         System.out.println("网络似乎有什么问题");
+                        Thread.sleep(1000*60*3);
                         continue;
                     }
                     if (h.json2Class(h.getJson()).uidapi == null) {
@@ -28,7 +29,7 @@ public class a {
                     else {
                         uidapi u = h.json2Class(h.getJson()).uidapi;
                         String username = u.Variables.space.username.replace("'", "''");
-                        System.out.println("用户名：" + username + "uid：" + u.Variables.space.uid);
+                        System.out.println("用户名：" + username + "，uid：" + u.Variables.space.uid);
                         s.insertsql(u.Variables.space.uid, username, u.Variables.space.credits,u.Variables.space.extcredits1,
                                 u.Variables.space.extcredits2,u.Variables.space.extcredits3,u.Variables.space.extcredits4,
                                 u.Variables.space.extcredits5,u.Variables.space.extcredits6,u.Variables.space.extcredits7,
