@@ -18,9 +18,26 @@ public class sqlite {
             sql = "CREATE TABLE MCBBS " +
                     "(UID INT PRIMARY KEY     NOT NULL," +
                     " NAME           TEXT    NOT NULL, " +
-                    " credits            INT     NOT NULL )";
+                    " credits            INT     NOT NULL," +
+                    "extcredits1 INT," +
+                    "extcredits2 INT," +
+                    "extcredits3 INT," +
+                    "extcredits4 INT," +
+                    "extcredits5 INT," +
+                    "extcredits6 INT," +
+                    "extcredits7 INT," +
+                    "extcredits8 INT," +
+                    "oltime INT," +
+                    "groupid INT," +
+                    "posts INT," +
+                    "threads INT," +
+                    "friends INT," +
+                    "grouptitle TEXT," +
+                    "views INT," +
+                    "adminid INT," +
+                    "extgroupids TEXT)";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO MCBBS VALUES (23333333,'目前进度',0);";
+            sql = "INSERT INTO MCBBS VALUES (23333333,'目前进度',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);";
             stmt.executeUpdate(sql);
             stmt.close();
             c.commit();
@@ -36,12 +53,31 @@ public class sqlite {
      * @param name 名字（单引号大概要处理成 '' 就可以避免错误了吧
      * @param credits 积分
      */
-    public void insertsql(int uid, String name, int credits) {
+    public void insertsql(int uid, String name, int credits,int extcredits1,int extcredits2,
+        int extcredits3,int extcredits4,int extcredits5,int extcredits6,int extcredits7,int extcredits8,
+                          int oltime,int groupid,int posts,int threads,int friends,String grouptitle,int views,int adminid,String extgroupids) {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
         StringBuilder sql = new StringBuilder("INSERT INTO MCBBS VALUES(");
         sql.append(uid).append(",");
         sql.append("\"").append(name).append("\"").append(",");
-        sql.append(credits).append(");");
+        sql.append(credits).append(",");
+        sql.append(extcredits1).append(",");
+        sql.append(extcredits2).append(",");
+        sql.append(extcredits3).append(",");
+        sql.append(extcredits4).append(",");
+        sql.append(extcredits5).append(",");
+        sql.append(extcredits6).append(",");
+        sql.append(extcredits7).append(",");
+        sql.append(extcredits8).append(",");
+        sql.append(oltime).append(",");
+        sql.append(groupid).append(",");
+        sql.append(posts).append(",");
+        sql.append(threads).append(",");
+        sql.append(friends).append(",");
+        sql.append("\"").append(grouptitle).append("\"").append(",");
+        sql.append(views).append(",");
+        sql.append(adminid).append(",");
+        sql.append("\"").append(extgroupids).append("\"").append(");");
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
