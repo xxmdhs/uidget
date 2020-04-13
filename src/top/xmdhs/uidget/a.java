@@ -33,8 +33,8 @@ public class a {
                                 u.Variables.space.extcredits2,u.Variables.space.extcredits3,u.Variables.space.extcredits4,
                                 u.Variables.space.extcredits5,u.Variables.space.extcredits6,u.Variables.space.extcredits7,
                                 u.Variables.space.extcredits8,u.Variables.space.oltime,u.Variables.space.groupid,
-                                u.Variables.space.posts,u.Variables.space.threads,u.Variables.space.friends,u.Variables.space.group.grouptitle,
-                                u.Variables.space.views,u.Variables.space.adminid,u.Variables.space.extgroupids);
+                                u.Variables.space.posts,u.Variables.space.threads,u.Variables.space.friends,
+                                u.Variables.space.views,u.Variables.space.adminid,u.Variables.space.emailstatus,u.Variables.space.extgroupids);
                         i = u.Variables.space.uid;
                     }
                     i++;

@@ -32,9 +32,9 @@ public class sqlite {
                     "posts INT," +
                     "threads INT," +
                     "friends INT," +
-                    "grouptitle TEXT," +
                     "views INT," +
                     "adminid INT," +
+                    "emailstatus INT," +
                     "extgroupids TEXT)";
             stmt.executeUpdate(sql);
             sql = "INSERT INTO MCBBS VALUES (23333333,'目前进度',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);";
@@ -55,7 +55,7 @@ public class sqlite {
      */
     public void insertsql(int uid, String name, int credits,int extcredits1,int extcredits2,
         int extcredits3,int extcredits4,int extcredits5,int extcredits6,int extcredits7,int extcredits8,
-                          int oltime,int groupid,int posts,int threads,int friends,String grouptitle,int views,int adminid,String extgroupids) {
+                          int oltime,int groupid,int posts,int threads,int friends,int views,int adminid,int emailstatus,String extgroupids) {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
         StringBuilder sql = new StringBuilder("INSERT INTO MCBBS VALUES(");
         sql.append(uid).append(",");
@@ -74,9 +74,9 @@ public class sqlite {
         sql.append(posts).append(",");
         sql.append(threads).append(",");
         sql.append(friends).append(",");
-        sql.append("\"").append(grouptitle).append("\"").append(",");
         sql.append(views).append(",");
         sql.append(adminid).append(",");
+        sql.append(emailstatus).append(",");
         sql.append("\"").append(extgroupids).append("\"").append(");");
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");

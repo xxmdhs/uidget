@@ -82,10 +82,6 @@ class uidapi{
               public int posts;
               public int threads;
               public int friends;
-              public Group group;
-              class Group{
-                  public String grouptitle;
-              }
               public int views;
               public int emailstatus;
               public int adminid;
