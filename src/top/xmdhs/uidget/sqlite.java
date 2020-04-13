@@ -7,7 +7,7 @@ public class sqlite {
     /**
      * 创建数据库
      */
-    public void creatSql(String uid) {
+    public void creatSql() {
         try {
             String sql;
             Class.forName("org.sqlite.JDBC");
