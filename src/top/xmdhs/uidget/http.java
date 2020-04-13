@@ -31,7 +31,7 @@ public class http {
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36");
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
             String current;
-            StringBuilder json = new StringBuilder("");
+            StringBuilder json = new StringBuilder();
             while ((current = in.readLine()) != null) {
                 json.append(current);
             }
@@ -40,15 +40,19 @@ public class http {
 
             } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return "1";
         }
     }
-    public uidapi json2Class(String json){
+    public ReturnTwo<uidapi, Integer> json2Class(String json){
         Gson gson = new Gson();
+        if(json.equals("1")){
+            return new ReturnTwo<>(null, 1);
+        }
        try {
-           return gson.fromJson(json,uidapi.class);
+           uidapi u = gson.fromJson(json, uidapi.class);
+           return new ReturnTwo<>(u, 0);
        }catch (JsonSyntaxException e){
-           return null;
+           return new ReturnTwo<>(null, 2);
        }
     }
 }
@@ -89,4 +93,14 @@ class uidapi{
           }
       }
     }
+class ReturnTwo<A,B> {
 
+    public final A uidapi;
+    public final B Integer;
+
+    public ReturnTwo(A a,B b) {
+        uidapi = a;
+        Integer = b;
+    }
+
+}

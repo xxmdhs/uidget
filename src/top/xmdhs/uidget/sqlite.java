@@ -20,7 +20,9 @@ public class sqlite {
                     " NAME           TEXT    NOT NULL, " +
                     " credits            INT     NOT NULL )";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO MCBBS VALUES (23333333,'0',0);";
+            sql = "INSERT INTO MCBBS VALUES (23333333,'目前进度',0);";
+            stmt.executeUpdate(sql);
+            sql = "INSERT INTO MCBBS VALUES (23333334,'无效用户',0);";
             stmt.executeUpdate(sql);
             stmt.close();
             c.commit();
@@ -57,18 +59,19 @@ public class sqlite {
     }
 
     /**
-     * 用 sql 储存目前爬取进入，方便崩溃后重新爬取
-     * @param uid 目前爬取的进度
+     * 用 sql 储存目前爬取进入，方便崩溃后重新爬取，同时存储别的什么东西
+     * @param intData 储存的数据
      */
-    public void setUid(int uid){
+    public void setUid(int intData){
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
             c.setAutoCommit(false);
-            String sql = "UPDATE MCBBS set NAME = "+ uid +" where UID=23333333;";
+            String sql = "UPDATE MCBBS set credits = "+ intData +" where UID=23333333;";
             stmt.executeUpdate(sql);
+            stmt.close();
             c.commit();
-
+            c.close();
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,10 +86,14 @@ public class sqlite {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID=23333333;" );
-            return rs.getInt("NAME");
+            int i = rs.getInt("credits");
+            rs.close();
+            stmt.close();
+            c.close();
+            return i;
         }catch (SQLException e) {
             e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
 }
