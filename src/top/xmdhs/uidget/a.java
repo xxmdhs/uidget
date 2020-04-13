@@ -18,7 +18,7 @@ public class a {
                     i = s.getUid();
                     URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
                     http h = new http(url);
-                    if (h.json2Class(h.getJson()).uidapi != null && h.json2Class(h.getJson()).Integer == 1) {
+                    if (h.json2Class(h.getJson()).Integer == 1) {
                         System.out.println("网络似乎有什么问题");
                         continue;
                     }
