@@ -10,17 +10,20 @@ public class sqlite {
      */
     public void creatSql() {
         try {
-            String sql = null;
+            String sql;
             Class.forName("org.sqlite.JDBC");
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
+            c.setAutoCommit(false);
             Statement stmt = c.createStatement();
             sql = "CREATE TABLE MCBBS " +
                     "(UID INT PRIMARY KEY     NOT NULL," +
                     " NAME           TEXT    NOT NULL, " +
                     " credits            INT     NOT NULL )";
             stmt.executeUpdate(sql);
-
+            sql = "INSERT INTO MCBBS VALUES (23333333,'0',0);";
+            stmt.executeUpdate(sql);
             stmt.close();
+            c.commit();
             c.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,7 +41,7 @@ public class sqlite {
         StringBuilder sql = new StringBuilder("INSERT INTO MCBBS VALUES(");
         sql.append(uid).append(",");
         sql.append(name).append(",");
-        sql.append(credits).append(")");
+        sql.append(credits).append(");");
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
@@ -62,12 +65,23 @@ public class sqlite {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
             c.setAutoCommit(false);
-            String sql = "UPDATE COMPANY set MCBBS = "+ uid +" where ID=23333333;";
+            String sql = "UPDATE MCBBS set NAME = "+ uid +" where UID=23333333;";
             stmt.executeUpdate(sql);
             c.commit();
 
         }catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    public int getUid(){
+        try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID=23333333;" );
+            return rs.getInt("NAME");
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 }
