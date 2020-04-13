@@ -1,6 +1,5 @@
 package top.xmdhs.uidget;
 
-import org.sqlite.SQLiteException;
 
 import java.sql.*;
 
@@ -8,7 +7,7 @@ public class sqlite {
     /**
      * 创建数据库
      */
-    public void creatSql() {
+    public void creatSql(String uid) {
         try {
             String sql;
             Class.forName("org.sqlite.JDBC");
@@ -36,8 +35,6 @@ public class sqlite {
                     "adminid INT," +
                     "emailstatus INT," +
                     "extgroupids TEXT)";
-            stmt.executeUpdate(sql);
-            sql = "INSERT INTO MCBBS VALUES (23333333,'目前进度',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);";
             stmt.executeUpdate(sql);
             stmt.close();
             c.commit();
@@ -96,12 +93,12 @@ public class sqlite {
      * 用 sql 储存目前爬取进入，方便崩溃后重新爬取，同时存储别的什么东西
      * @param intData 储存的数据
      */
-    public void setUid(int intData){
+    public void setUid(int intData,String uid){
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
             c.setAutoCommit(false);
-            String sql = "UPDATE MCBBS set credits = "+ intData +" where UID=23333333;";
+            String sql = "UPDATE MCBBS set credits = "+ intData +" where UID="+uid+";";
             stmt.executeUpdate(sql);
             stmt.close();
             c.commit();
@@ -115,11 +112,11 @@ public class sqlite {
      * 获取目前的进度
      * @return 返回爬取到的 uid
      */
-    public int getUid(){
+    public int getUid(String uid){
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID=23333333;" );
+            ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" );
             int i = rs.getInt("credits");
             rs.close();
             stmt.close();
