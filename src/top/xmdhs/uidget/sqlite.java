@@ -58,7 +58,7 @@ public class sqlite {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
         StringBuilder sql = new StringBuilder("INSERT INTO MCBBS VALUES(");
         sql.append(uid).append(",");
-        sql.append("\"").append(name).append("\"").append(",");
+        sql.append("'").append(name).append("'").append(",");
         sql.append(credits).append(",");
         sql.append(extcredits1).append(",");
         sql.append(extcredits2).append(",");
