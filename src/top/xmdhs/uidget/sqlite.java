@@ -22,8 +22,6 @@ public class sqlite {
             stmt.executeUpdate(sql);
             sql = "INSERT INTO MCBBS VALUES (23333333,'目前进度',0);";
             stmt.executeUpdate(sql);
-            sql = "INSERT INTO MCBBS VALUES (23333334,'无效用户',0);";
-            stmt.executeUpdate(sql);
             stmt.close();
             c.commit();
             c.close();
