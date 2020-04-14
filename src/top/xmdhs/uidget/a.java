@@ -39,13 +39,11 @@ class papapa extends Thread{
         }
         try {
             while (i <= Integer.parseInt(end)) {
-                Thread.sleep(250);
                 i = s.getUid(uid);
                 URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid="+ i);
                 http h = new http(url);
                 if (h.getJson().equals("1")) {
                     System.out.println("网络似乎有什么问题");
-                    Thread.sleep(30000);
                     continue;
                 }
                 if (h.json2Class(h.getJson()) == null) {
@@ -55,12 +53,7 @@ class papapa extends Thread{
                     uidapi u = h.json2Class(h.getJson());
                     String username = u.Variables.space.username.replace("'", "''");
                     System.out.println("用户名：" + username + "，uid：" + u.Variables.space.uid);
-                    if(u.Variables.space.group == null){
-                        i = u.Variables.space.uid;
-                        i++;
-                        s.setUid(i,uid);
-                        continue;
-                    }else {
+                    if(u.Variables.space.group != null){
                     s.insertsql(u.Variables.space.uid, username, u.Variables.space.credits,u.Variables.space.extcredits1,
                             u.Variables.space.extcredits2,u.Variables.space.extcredits3,u.Variables.space.extcredits4,
                             u.Variables.space.extcredits5,u.Variables.space.extcredits6,u.Variables.space.extcredits7,
