@@ -36,10 +36,13 @@ public class sqlite {
                     "emailstatus INT," +
                     "grouptitle TEXT," +
                     "extgroupids TEXT)";
-            stmt.executeUpdate(sql);
+           try {
+               stmt.executeUpdate(sql);
+           }finally {
             stmt.close();
             c.commit();
             c.close();
+           }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,10 +85,13 @@ public class sqlite {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
             c.setAutoCommit(false);
-            stmt.executeUpdate(sql.toString());
-            stmt.close();
-            c.commit();
-            c.close();
+            try {
+                stmt.executeUpdate(sql.toString());
+            }finally {
+                stmt.close();
+                c.commit();
+                c.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,10 +108,13 @@ public class sqlite {
             Statement stmt = c.createStatement();
             c.setAutoCommit(false);
             String sql = "UPDATE MCBBS set credits = "+ intData +" where UID="+uid+";";
-            stmt.executeUpdate(sql);
-            stmt.close();
-            c.commit();
-            c.close();
+          try {
+              stmt.executeUpdate(sql);
+          }finally {
+              stmt.close();
+              c.commit();
+              c.close();
+          }
         }catch (SQLException e) {
             e.printStackTrace();
         }
