@@ -41,7 +41,7 @@ class papapa extends Thread{
             while (i <= Integer.parseInt(end)) {
                 Thread.sleep(250);
                 i = s.getUid(uid);
-                URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
+                URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid="+ i);
                 http h = new http(url);
                 if (h.json2Class(h.getJson()).Integer == 1) {
                     System.out.println("网络似乎有什么问题");
@@ -54,12 +54,18 @@ class papapa extends Thread{
                     uidapi u = h.json2Class(h.getJson()).uidapi;
                     String username = u.Variables.space.username.replace("'", "''");
                     System.out.println("用户名：" + username + "，uid：" + u.Variables.space.uid);
+                    if(u.Variables.space.group == null){
+                        i = u.Variables.space.uid;
+                        i++;
+                        continue;
+                    }else {
                     s.insertsql(u.Variables.space.uid, username, u.Variables.space.credits,u.Variables.space.extcredits1,
                             u.Variables.space.extcredits2,u.Variables.space.extcredits3,u.Variables.space.extcredits4,
                             u.Variables.space.extcredits5,u.Variables.space.extcredits6,u.Variables.space.extcredits7,
                             u.Variables.space.extcredits8,u.Variables.space.oltime,u.Variables.space.groupid,
                             u.Variables.space.posts,u.Variables.space.threads,u.Variables.space.friends,
                             u.Variables.space.views,u.Variables.space.adminid,u.Variables.space.emailstatus, u.Variables.space.group.grouptitle,u.Variables.space.extgroupids);
+                    }
                     i = u.Variables.space.uid;
                 }
                 i++;
