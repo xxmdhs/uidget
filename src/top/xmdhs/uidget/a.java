@@ -5,9 +5,9 @@ import java.net.URL;
 public class a {
     public static void main(String[] args) {
         papapa[] pa = new papapa[3];
-        pa[0] = new papapa("2147483646","0","1000",0);
-        pa[1] = new papapa("2147483645","1001","2000",2500);
-        pa[2] = new papapa("2147483644","2001","3000",5000);
+        pa[0] = new papapa("2147483646","1","1075816",0);
+        pa[1] = new papapa("2147483645","1075817","2151632",2500);
+        pa[2] = new papapa("2147483644","2151633","3227448",5000);
         for (top.xmdhs.uidget.papapa papapa : pa) {
             papapa.start();
         }
@@ -45,7 +45,7 @@ class papapa extends Thread{
                 http h = new http(url);
                 if (h.json2Class(h.getJson()).Integer == 1) {
                     System.out.println("网络似乎有什么问题");
-                    Thread.sleep(1000*60*3);
+                    Thread.sleep(30000);
                     continue;
                 }
                 if (h.json2Class(h.getJson()).uidapi == null) {
