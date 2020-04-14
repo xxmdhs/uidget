@@ -39,12 +39,13 @@ class papapa extends Thread{
         }
         try {
             while (i <= Integer.parseInt(end)) {
-                Thread.sleep(250);
+                Thread.sleep(500);
                 i = s.getUid(uid);
                 URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid="+ i);
                 http h = new http(url);
                 if (h.json2Class(h.getJson()).Integer == 1) {
                     System.out.println("网络似乎有什么问题");
+                    Thread.sleep(30000);
                     continue;
                 }
                 if (h.json2Class(h.getJson()).uidapi == null) {
