@@ -57,6 +57,7 @@ class papapa extends Thread{
                     if(u.Variables.space.group == null){
                         i = u.Variables.space.uid;
                         i++;
+                        s.setUid(i,uid);
                         continue;
                     }else {
                     s.insertsql(u.Variables.space.uid, username, u.Variables.space.credits,u.Variables.space.extcredits1,
