@@ -40,7 +40,7 @@ class papapa extends Thread{
         try {
             while (i <= Integer.parseInt(end)) {
                 i = s.getUid(uid);
-                URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid="+ i);
+                URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid="+ i);//+ i
                 http h = new http(url);
                 if (h.getJson().equals("1")) {
                     System.out.println("网络似乎有什么问题");
@@ -67,6 +67,7 @@ class papapa extends Thread{
                 s.setUid(i,uid);
             }
         } catch (Exception e) {
+            System.out.println("线程终止");
             e.printStackTrace();
         }
     }
