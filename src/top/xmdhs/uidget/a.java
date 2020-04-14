@@ -39,7 +39,7 @@ class papapa extends Thread{
         }
         try {
             while (i <= Integer.parseInt(end)) {
-                Thread.sleep(500);
+                Thread.sleep(250);
                 i = s.getUid(uid);
                 URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid="+ i);
                 http h = new http(url);
