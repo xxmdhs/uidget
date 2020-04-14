@@ -23,11 +23,6 @@ public class http {
      */
     public String getJson(){
         try {
-            try {
-                Thread.sleep(250);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setUseCaches(false);
@@ -44,11 +39,6 @@ public class http {
 
 
             } catch (IOException e) {
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException ee) {
-                ee.printStackTrace();
-            }
             e.printStackTrace();
             return "1";
         }
