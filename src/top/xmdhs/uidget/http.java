@@ -43,16 +43,12 @@ public class http {
             return "1";
         }
     }
-    public ReturnTwo<uidapi, Integer> json2Class(String json){
+    public uidapi json2Class(String json){
         Gson gson = new Gson();
-        if(json.equals("1")){
-            return new ReturnTwo<>(null, 1);
-        }
        try {
-           uidapi u = gson.fromJson(json, uidapi.class);
-           return new ReturnTwo<>(u, 0);
+           return gson.fromJson(json, uidapi.class);
        }catch (JsonSyntaxException e){
-           return new ReturnTwo<>(null, 2);
+           return null;
        }
     }
 }
@@ -92,14 +88,3 @@ class uidapi{
           }
       }
     }
-class ReturnTwo<A,B> {
-
-    public final A uidapi;
-    public final B Integer;
-
-    public ReturnTwo(A a,B b) {
-        uidapi = a;
-        Integer = b;
-    }
-
-}

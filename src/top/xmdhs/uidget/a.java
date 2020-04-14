@@ -43,16 +43,16 @@ class papapa extends Thread{
                 i = s.getUid(uid);
                 URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid="+ i);
                 http h = new http(url);
-                if (h.json2Class(h.getJson()).Integer == 1) {
+                if (h.getJson().equals("1")) {
                     System.out.println("网络似乎有什么问题");
                     Thread.sleep(30000);
                     continue;
                 }
-                if (h.json2Class(h.getJson()).uidapi == null) {
+                if (h.json2Class(h.getJson()) == null) {
                     System.out.println("此用户大概有什么问题，uid：" + i);
                 }
                 else {
-                    uidapi u = h.json2Class(h.getJson()).uidapi;
+                    uidapi u = h.json2Class(h.getJson());
                     String username = u.Variables.space.username.replace("'", "''");
                     System.out.println("用户名：" + username + "，uid：" + u.Variables.space.uid);
                     if(u.Variables.space.group == null){
