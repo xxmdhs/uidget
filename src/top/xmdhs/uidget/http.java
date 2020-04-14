@@ -27,6 +27,7 @@ public class http {
             connection.setRequestMethod("GET");
             connection.setUseCaches(false);
             connection.setConnectTimeout(5000);
+            connection.setReadTimeout(5000);
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36");
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
