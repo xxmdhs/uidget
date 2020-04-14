@@ -49,6 +49,7 @@ public class http {
             } catch (InterruptedException ee) {
                 ee.printStackTrace();
             }
+            e.printStackTrace();
             return "1";
         }
     }
