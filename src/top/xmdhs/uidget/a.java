@@ -11,9 +11,9 @@ public class a {
         pa[1] = new papapa("2147483645", "1075817", "2151632");
         pa[2] = new papapa("2147483644", "2151633", "3227448");
         ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(3);
-        exec.scheduleAtFixedRate(() -> pa[0].run(), 1000, 250, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(() -> pa[1].run(), 2000, 250, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(() -> pa[2].run(), 3000, 250, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(() -> pa[0].run(), 1000, 500, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(() -> pa[1].run(), 2000, 500, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(() -> pa[2].run(), 3000, 500, TimeUnit.MILLISECONDS);
 
     }
 }
