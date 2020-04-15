@@ -50,7 +50,7 @@ class papapa {
                 i = s.getUid(uid);
                 URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
                 http h = new http(url);
-                if (h.getJson().equals("1") || !h.getJson().contains("Variables")) {
+                if (h.getJson().equals("1") || !h.getJson().contains(",\"ratio\":\"5000\",\"showinthread\":null,\"allowexchangein\":null,\"allowexchangeout\":null}}}")) {
                     logger.warning("网络似乎有什么问题");
                     Thread.sleep(10000);
                 } else {
