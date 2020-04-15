@@ -3,18 +3,26 @@ package top.xmdhs.uidget;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 
 public class http {
     private final URL url;
     public http(URL url){
         this.url = url;
+    }
+    public static String getStackTrace(Throwable throwable)
+    {
+        StringWriter sw = new StringWriter();
+        try (PrintWriter pw = new PrintWriter(sw)) {
+            throwable.printStackTrace(pw);
+            return sw.toString();
+        }
     }
 
     /**
@@ -40,7 +48,7 @@ public class http {
 
 
             } catch (IOException e) {
-            e.printStackTrace();
+            papapa.logger.warning(http.getStackTrace(e));
             return "1";
         }
     }
@@ -49,7 +57,7 @@ public class http {
        try {
            return gson.fromJson(json, uidapi.class);
        }catch (JsonSyntaxException e){
-           e.printStackTrace();
+           papapa.logger.warning(http.getStackTrace(e));
            return null;
        }
     }
