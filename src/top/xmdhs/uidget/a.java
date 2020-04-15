@@ -32,6 +32,7 @@ class papapa {
         this.start = start;
         this.end = end;
     }
+
     static Logger logger = Logger.getLogger("LoggerPropreties");
     static LogManager logManager = LogManager.getLogManager();
 
@@ -69,7 +70,9 @@ class papapa {
                         }
                         i = u.Variables.space.uid;
                     }
-                    i++;
+                    if (!h.getJson().equals("1")) {
+                        i++;
+                    }
                     s.setUid(i, uid);
                 }
             }
