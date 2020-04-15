@@ -49,6 +49,7 @@ public class http {
        try {
            return gson.fromJson(json, uidapi.class);
        }catch (JsonSyntaxException e){
+           e.printStackTrace();
            return null;
        }
     }
