@@ -57,7 +57,6 @@ public class http {
        try {
            return gson.fromJson(json, uidapi.class);
        }catch (JsonSyntaxException e){
-           papapa.logger.warning(http.getStackTrace(e));
            return null;
        }
     }

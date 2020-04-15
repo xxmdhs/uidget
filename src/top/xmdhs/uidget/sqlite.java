@@ -128,12 +128,17 @@ public class sqlite {
         try {
             Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" );
-            int i = rs.getInt("credits");
-            rs.close();
-            stmt.close();
-            c.close();
-            return i;
+           try {
+               ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" );
+               int i = rs.getInt("credits");
+               rs.close();
+               return i;
+           }catch (Exception e){
+               return -1;
+           }finally {
+               stmt.close();
+               c.close();
+           }
         }catch (SQLException e) {
             e.printStackTrace();
             return -1;
