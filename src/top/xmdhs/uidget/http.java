@@ -61,11 +61,25 @@ public class http {
            return null;
        }
     }
+    public TestJson testjson(String json){
+        Gson gson = new Gson();
+        try {
+            return gson.fromJson(json, TestJson.class);
+        }catch (JsonSyntaxException e){
+            papapa.logger.warning(http.getStackTrace(e));
+            return null;
+        }
+    }
 }
 
 /**
  * 用于处理 json
  */
+class TestJson{
+    public String Version;
+    public String Charset;
+}
+
 class uidapi{
     public variables Variables;
       static class variables{
