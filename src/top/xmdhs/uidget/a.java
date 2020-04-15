@@ -83,6 +83,9 @@ class papapa {
             }else {
                 i++;
                 s.setUid(i,uid);
+                if(i > Integer.parseInt(end)){
+                    System.out.println("结束了");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
