@@ -42,7 +42,7 @@ class papapa {
             s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0", "0");
         }
         try {
-            InputStream in = papapa.class.getResourceAsStream("/logging.properties");//注意配置
+            InputStream in = papapa.class.getResourceAsStream("/logging.properties");
             logManager.readConfiguration(in);
             logManager.addLogger(logger);
             if (i <= Integer.parseInt(end)) {
