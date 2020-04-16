@@ -36,13 +36,13 @@ public class sqlite {
                     "emailstatus INT," +
                     "grouptitle TEXT," +
                     "extgroupids TEXT)";
-           try {
-               stmt.executeUpdate(sql);
-           }finally {
-            stmt.close();
-            c.commit();
-            c.close();
-           }
+            try {
+                stmt.executeUpdate(sql);
+            }finally {
+                stmt.close();
+                c.commit();
+                c.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class sqlite {
      * @param credits 积分
      */
     public void insertsql(int uid, String name, int credits,int extcredits1,int extcredits2,
-        int extcredits3,int extcredits4,int extcredits5,int extcredits6,int extcredits7,int extcredits8,
+                          int extcredits3,int extcredits4,int extcredits5,int extcredits6,int extcredits7,int extcredits8,
                           int oltime,int groupid,int posts,int threads,int friends,int views,int adminid,
                           int emailstatus,String grouptitle,String extgroupids) {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
@@ -108,13 +108,13 @@ public class sqlite {
             Statement stmt = c.createStatement();
             c.setAutoCommit(false);
             String sql = "UPDATE MCBBS set credits = "+ intData +" where UID="+uid+";";
-          try {
-              stmt.executeUpdate(sql);
-          }finally {
-              stmt.close();
-              c.commit();
-              c.close();
-          }
+            try {
+                stmt.executeUpdate(sql);
+            }finally {
+                stmt.close();
+                c.commit();
+                c.close();
+            }
         }catch (SQLException e) {
             e.printStackTrace();
         }
