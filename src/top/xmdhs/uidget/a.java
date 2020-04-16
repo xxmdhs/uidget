@@ -55,7 +55,13 @@ class papapa {
                     Thread.sleep(10000);
                 } else {
                     if (h.json2Class(h.getJson()) == null) {
+                        if(h.getJson().contains("messageval")){
                         logger.warning("此用户大概有什么问题，uid：" + i);
+                        i++;
+                        }else {
+                            logger.warning("网络似乎有什么问题");
+                            Thread.sleep(10000);
+                        }
                     } else {
                         uidapi u = h.json2Class(h.getJson());
                         String username = u.Variables.space.username.replace("'", "''");
@@ -69,8 +75,8 @@ class papapa {
                                     u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus, u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
                         }
                         i = u.Variables.space.uid;
-                    }
                         i++;
+                    }
                     s.setUid(i, uid);
                 }
             }
