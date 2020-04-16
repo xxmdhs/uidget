@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 public class a {
     public static void main(String[] args) {
         papapa[] pa = new papapa[3];
-        pa[0] = new papapa("2147483643", "1", "1075816");
-        pa[1] = new papapa("2147483642", "1075817", "2151632");
-        pa[2] = new papapa("2147483641", "2151633", "3227448");
+        pa[0] = new papapa("2147483643", "1", "139294");
+        pa[1] = new papapa("2147483642", "1075817", "1216079");
+        pa[2] = new papapa("2147483641", "2151633", "2289654");
         ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(5);
         exec.scheduleAtFixedRate(() -> pa[0].run(), 1000, 500, TimeUnit.MILLISECONDS);
         exec.scheduleAtFixedRate(() -> pa[1].run(), 2000, 500, TimeUnit.MILLISECONDS);
@@ -55,12 +55,7 @@ class papapa {
                     Thread.sleep(10000);
                 } else {
                     if (h.json2Class(h.getJson()) == null) {
-                        if(h.getJson().contains("messageval")){
-                            System.out.println("此用户大概有什么问题，uid：" + i);
-                        }else {
-                            logger.warning("网络似乎有什么问题");
-                            Thread.sleep(10000);
-                        }
+                        System.out.println("此用户大概有什么问题，uid：" + i);
                     } else {
                         uidapi u = h.json2Class(h.getJson());
                         String username = u.Variables.space.username.replace("'", "''");
@@ -75,16 +70,15 @@ class papapa {
                         }
                         i = u.Variables.space.uid;
                     }
-                    if (!h.getJson().equals("1")) {
-                        i++;
-                    }
+                    i++;
                     s.setUid(i, uid);
                 }
-            }else {
+            } else {
                 i++;
-                s.setUid(i,uid);
-                if(i > Integer.parseInt(end)){
+                s.setUid(i, uid);
+                if (i > Integer.parseInt(end)) {
                     System.out.println("结束了");
+                    Thread.sleep(10000);
                 }
             }
         } catch (Exception e) {
