@@ -45,10 +45,15 @@ public class http {
                 json.append(current);
             }
             return json.toString();
-
-
             } catch (IOException e) {
             papapa.logger.warning(http.getStackTrace(e));
+            if(e.getMessage().contains("response code")) {
+                try {
+                    Thread.sleep(180000);
+                } catch (InterruptedException interruptedException) {
+                    interruptedException.printStackTrace();
+                }
+            }
             return "1";
         }
     }
