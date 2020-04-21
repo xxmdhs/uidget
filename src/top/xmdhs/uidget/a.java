@@ -17,9 +17,9 @@ public class a {
         in.close();
         logManager.addLogger(logger);
         ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(3);
-        exec.scheduleWithFixedDelay(new papapa("2147483646", "1", "1075816"), 1000, 500, TimeUnit.MILLISECONDS);
-        exec.scheduleWithFixedDelay(new papapa("2147483645", "1075817", "2151632"), 2000, 500, TimeUnit.MILLISECONDS);
-        exec.scheduleWithFixedDelay(new papapa("2147483644", "2151633", "3227448"), 3000, 500, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483646", "1", "1075816"), 1000, 500, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483645", "1075817", "2151632"), 2000, 500, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483644", "2151633", "3227448"), 3000, 500, TimeUnit.MILLISECONDS);
 
     }
 }
