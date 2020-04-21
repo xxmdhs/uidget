@@ -46,7 +46,7 @@ public class http {
             }
             return json.toString();
             } catch (IOException e) {
-            papapa.logger.warning(http.getStackTrace(e));
+            a.logger.warning(http.getStackTrace(e));
             if(e.getMessage().contains("response code")) {
                 try {
                     Thread.sleep(180000);
@@ -62,7 +62,7 @@ public class http {
        try {
            return gson.fromJson(json, uidapi.class);
        }catch (JsonSyntaxException e){
-           papapa.logger.warning(http.getStackTrace(e));
+           a.logger.warning(http.getStackTrace(e));
            return null;
        }
     }
@@ -71,7 +71,7 @@ public class http {
         try {
             return gson.fromJson(json, TestJson.class);
         }catch (JsonSyntaxException e){
-            papapa.logger.warning(http.getStackTrace(e));
+            a.logger.warning(http.getStackTrace(e));
             return null;
         }
     }

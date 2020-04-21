@@ -1,5 +1,6 @@
 package top.xmdhs.uidget;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -8,7 +9,13 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class a {
-    public static void main(String[] args) {
+    static Logger logger = Logger.getLogger("LoggerPropreties");
+    static LogManager logManager = LogManager.getLogManager();
+    public static void main(String[] args) throws IOException {
+        InputStream in = papapa.class.getResourceAsStream("/logging.properties");
+        logManager.readConfiguration(in);
+        in.close();
+        logManager.addLogger(logger);
         papapa[] pa = new papapa[3];
         pa[0] = new papapa("2147483646", "1", "1075816");
         pa[1] = new papapa("2147483645", "1075817", "2151632");
@@ -33,8 +40,6 @@ class papapa {
         this.end = end;
     }
 
-    static Logger logger = Logger.getLogger("LoggerPropreties");
-    static LogManager logManager = LogManager.getLogManager();
 
     public void run() {
         int i = s.getUid(uid);
@@ -43,23 +48,20 @@ class papapa {
             s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0", "0");
         }
         try {
-            InputStream in = papapa.class.getResourceAsStream("/logging.properties");
-            logManager.readConfiguration(in);
-            logManager.addLogger(logger);
             if (i <= Integer.parseInt(end)) {
                 i = s.getUid(uid);
                 URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
                 http h = new http(url);
                 if (h.getJson().equals("1") || !h.testjson(h.getJson()).Charset.equals("UTF-8")) {
-                    logger.warning("网络似乎有什么问题");
+                    a.logger.warning("网络似乎有什么问题");
                     Thread.sleep(10000);
                 } else {
                     if (h.json2Class(h.getJson()) == null) {
                         if(h.getJson().contains("messageval")){
-                        logger.warning("此用户大概有什么问题，uid：" + i);
+                        a.logger.warning("此用户大概有什么问题，uid：" + i);
                         i++;
                         }else {
-                            logger.warning("网络似乎有什么问题");
+                            a.logger.warning("网络似乎有什么问题");
                             Thread.sleep(10000);
                         }
                     } else {
