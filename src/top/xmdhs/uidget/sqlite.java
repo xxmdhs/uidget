@@ -7,46 +7,41 @@ public class sqlite {
     /**
      * 创建数据库
      */
-    static Connection c;
-
-    static {
-        try {
-            c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-    }
-
-    public static void creatSql() {
+    public void creatSql() {
         try {
             String sql;
+            Class.forName("org.sqlite.JDBC");
+            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             c.setAutoCommit(false);
-            try (Statement stmt = c.createStatement()) {
-                sql = "CREATE TABLE MCBBS " +
-                        "(UID INT PRIMARY KEY     NOT NULL," +
-                        " NAME           TEXT    NOT NULL, " +
-                        " credits            INT     NOT NULL," +
-                        "extcredits1 INT," +
-                        "extcredits2 INT," +
-                        "extcredits3 INT," +
-                        "extcredits4 INT," +
-                        "extcredits5 INT," +
-                        "extcredits6 INT," +
-                        "extcredits7 INT," +
-                        "extcredits8 INT," +
-                        "oltime INT," +
-                        "groupid INT," +
-                        "posts INT," +
-                        "threads INT," +
-                        "friends INT," +
-                        "views INT," +
-                        "adminid INT," +
-                        "emailstatus INT," +
-                        "grouptitle TEXT," +
-                        "extgroupids TEXT)";
+            Statement stmt = c.createStatement();
+            sql = "CREATE TABLE MCBBS " +
+                    "(UID INT PRIMARY KEY     NOT NULL," +
+                    " NAME           TEXT    NOT NULL, " +
+                    " credits            INT     NOT NULL," +
+                    "extcredits1 INT," +
+                    "extcredits2 INT," +
+                    "extcredits3 INT," +
+                    "extcredits4 INT," +
+                    "extcredits5 INT," +
+                    "extcredits6 INT," +
+                    "extcredits7 INT," +
+                    "extcredits8 INT," +
+                    "oltime INT," +
+                    "groupid INT," +
+                    "posts INT," +
+                    "threads INT," +
+                    "friends INT," +
+                    "views INT," +
+                    "adminid INT," +
+                    "emailstatus INT," +
+                    "grouptitle TEXT," +
+                    "extgroupids TEXT)";
+            try {
                 stmt.executeUpdate(sql);
-            } finally {
+            }finally {
+                stmt.close();
                 c.commit();
+                c.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,7 +54,7 @@ public class sqlite {
      * @param name 名字（单引号大概要处理成 '' 就可以避免错误了吧
      * @param credits 积分
      */
-    public static void insertsql(int uid, String name, int credits,int extcredits1,int extcredits2,
+    public void insertsql(int uid, String name, int credits,int extcredits1,int extcredits2,
                           int extcredits3,int extcredits4,int extcredits5,int extcredits6,int extcredits7,int extcredits8,
                           int oltime,int groupid,int posts,int threads,int friends,int views,int adminid,
                           int emailstatus,String grouptitle,String extgroupids) {
@@ -87,11 +82,15 @@ public class sqlite {
         sql.append("'").append(grouptitle).append("'").append(",");
         sql.append("'").append(extgroupids).append("'").append(");");
         try {
-            try (Statement stmt = c.createStatement()) {
-                c.setAutoCommit(false);
+            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
+            Statement stmt = c.createStatement();
+            c.setAutoCommit(false);
+            try {
                 stmt.executeUpdate(sql.toString());
-            } finally {
+            }finally {
+                stmt.close();
                 c.commit();
+                c.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,14 +102,18 @@ public class sqlite {
      * 用 sql 储存目前爬取进入，方便崩溃后重新爬取，同时存储别的什么东西
      * @param intData 储存的数据
      */
-    public static void setUid(int intData,String uid){
+    public void setUid(int intData,String uid){
         try {
-            try (Statement stmt = c.createStatement()) {
-                c.setAutoCommit(false);
-                String sql = "UPDATE MCBBS set credits = " + intData + " where UID=" + uid + ";";
+            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
+            Statement stmt = c.createStatement();
+            c.setAutoCommit(false);
+            String sql = "UPDATE MCBBS set credits = "+ intData +" where UID="+uid+";";
+            try {
                 stmt.executeUpdate(sql);
-            } finally {
+            }finally {
+                stmt.close();
                 c.commit();
+                c.close();
             }
         }catch (SQLException e) {
             e.printStackTrace();
@@ -121,13 +124,15 @@ public class sqlite {
      * 获取目前的进度
      * @return 返回爬取到的 uid
      */
-    public static int getUid(String uid){
+    public int getUid(String uid){
         try {
+            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" );
             int i = rs.getInt("credits");
             rs.close();
             stmt.close();
+            c.close();
             return i;
         }catch (SQLException e) {
             e.printStackTrace();

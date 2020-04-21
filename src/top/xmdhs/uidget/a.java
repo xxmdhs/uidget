@@ -28,6 +28,7 @@ class papapa implements Runnable {
     private final String uid;
     private final String start;
     private final String end;
+    sqlite s = new sqlite();
 
     public papapa(String uid, String start, String end) {
         this.uid = uid;
@@ -37,14 +38,14 @@ class papapa implements Runnable {
 
 
     public void run() {
-        int i = sqlite.getUid(uid);
+        int i = s.getUid(uid);
         if (i == -1) {
-            sqlite.creatSql();
-            sqlite.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0", "0");
+            s.creatSql();
+            s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0", "0");
         }
         try {
             if (i <= Integer.parseInt(end)) {
-                i = sqlite.getUid(uid);
+                i = s.getUid(uid);
                 URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
                 http h = new http(url);
                 if (h.getJson().equals("1") || !h.testjson(h.getJson()).Charset.equals("UTF-8")) {
@@ -64,7 +65,7 @@ class papapa implements Runnable {
                         String username = u.Variables.space.username.replace("'", "''");
                         System.out.println("用户名：" + username + "，uid：" + u.Variables.space.uid);
                         if (u.Variables.space.group != null) {
-                            sqlite.insertsql(u.Variables.space.uid, username, u.Variables.space.credits, u.Variables.space.extcredits1,
+                            s.insertsql(u.Variables.space.uid, username, u.Variables.space.credits, u.Variables.space.extcredits1,
                                     u.Variables.space.extcredits2, u.Variables.space.extcredits3, u.Variables.space.extcredits4,
                                     u.Variables.space.extcredits5, u.Variables.space.extcredits6, u.Variables.space.extcredits7,
                                     u.Variables.space.extcredits8, u.Variables.space.oltime, u.Variables.space.groupid,
@@ -74,7 +75,7 @@ class papapa implements Runnable {
                         i = u.Variables.space.uid;
                         i++;
                     }
-                    sqlite.setUid(i, uid);
+                    s.setUid(i, uid);
                 }
             }
         } catch (Exception e) {
