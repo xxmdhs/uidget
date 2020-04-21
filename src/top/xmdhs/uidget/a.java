@@ -16,19 +16,15 @@ public class a {
         logManager.readConfiguration(in);
         in.close();
         logManager.addLogger(logger);
-        papapa[] pa = new papapa[3];
-        pa[0] = new papapa("2147483646", "1", "1075816");
-        pa[1] = new papapa("2147483645", "1075817", "2151632");
-        pa[2] = new papapa("2147483644", "2151633", "3227448");
-        ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(5);
-        exec.scheduleAtFixedRate(() -> pa[0].run(), 1000, 500, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(() -> pa[1].run(), 2000, 500, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(() -> pa[2].run(), 3000, 500, TimeUnit.MILLISECONDS);
+        ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(3);
+        exec.scheduleWithFixedDelay(new papapa("2147483646", "1", "1075816"), 1000, 500, TimeUnit.MILLISECONDS);
+        exec.scheduleWithFixedDelay(new papapa("2147483645", "1075817", "2151632"), 2000, 500, TimeUnit.MILLISECONDS);
+        exec.scheduleWithFixedDelay(new papapa("2147483644", "2151633", "3227448"), 3000, 500, TimeUnit.MILLISECONDS);
 
     }
 }
 
-class papapa {
+class papapa implements Runnable {
     private final String uid;
     private final String start;
     private final String end;
