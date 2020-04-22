@@ -7,8 +7,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 
 
 public class http {

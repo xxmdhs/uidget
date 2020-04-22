@@ -1,5 +1,9 @@
 package top.xmdhs.uidget;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -11,11 +15,18 @@ import java.util.logging.Logger;
 public class a {
     static Logger logger = Logger.getLogger("LoggerPropreties");
     static LogManager logManager = LogManager.getLogManager();
+    static DataSource ds;
     public static void main(String[] args) throws IOException {
         InputStream in = papapa.class.getResourceAsStream("/logging.properties");
         logManager.readConfiguration(in);
         in.close();
         logManager.addLogger(logger);
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:sqlite:mcbbs.db");
+        config.addDataSourceProperty("connectionTimeout", "1000");
+        config.addDataSourceProperty("idleTimeout", "60000");
+        config.addDataSourceProperty("maximumPoolSize", "10");
+        ds = new HikariDataSource(config);
         ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(3);
         exec.scheduleAtFixedRate(new papapa("2147483646", "1", "1075816"), 1000, 500, TimeUnit.MILLISECONDS);
         exec.scheduleAtFixedRate(new papapa("2147483645", "1075817", "2151632"), 2000, 500, TimeUnit.MILLISECONDS);

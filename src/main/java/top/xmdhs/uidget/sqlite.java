@@ -11,7 +11,7 @@ public class sqlite {
         try {
             String sql;
             Class.forName("org.sqlite.JDBC");
-            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
+            Connection c = a.ds.getConnection();
             c.setAutoCommit(false);
             Statement stmt = c.createStatement();
             sql = "CREATE TABLE MCBBS " +
@@ -82,7 +82,7 @@ public class sqlite {
         sql.append("'").append(grouptitle).append("'").append(",");
         sql.append("'").append(extgroupids).append("'").append(");");
         try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
+            Connection c = a.ds.getConnection();
             Statement stmt = c.createStatement();
             c.setAutoCommit(false);
             try {
@@ -104,7 +104,7 @@ public class sqlite {
      */
     public void setUid(int intData,String uid){
         try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
+            Connection c = a.ds.getConnection();
             Statement stmt = c.createStatement();
             c.setAutoCommit(false);
             String sql = "UPDATE MCBBS set credits = "+ intData +" where UID="+uid+";";
@@ -126,7 +126,7 @@ public class sqlite {
      */
     public int getUid(String uid){
         try {
-            Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db");
+            Connection c = a.ds.getConnection();
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" );
             int i = rs.getInt("credits");
