@@ -8,40 +8,33 @@ public class sqlite {
      * 创建数据库
      */
     public void creatSql() {
-        try {
-            String sql;
-            Class.forName("org.sqlite.JDBC");
-            Connection c = a.ds.getConnection();
-            c.setAutoCommit(false);
-            Statement stmt = c.createStatement();
-            sql = "CREATE TABLE MCBBS " +
-                    "(UID INT PRIMARY KEY     NOT NULL," +
-                    " NAME           TEXT    NOT NULL, " +
-                    " credits            INT     NOT NULL," +
-                    "extcredits1 INT," +
-                    "extcredits2 INT," +
-                    "extcredits3 INT," +
-                    "extcredits4 INT," +
-                    "extcredits5 INT," +
-                    "extcredits6 INT," +
-                    "extcredits7 INT," +
-                    "extcredits8 INT," +
-                    "oltime INT," +
-                    "groupid INT," +
-                    "posts INT," +
-                    "threads INT," +
-                    "friends INT," +
-                    "views INT," +
-                    "adminid INT," +
-                    "emailstatus INT," +
-                    "grouptitle TEXT," +
-                    "extgroupids TEXT)";
-            try {
+        try(Connection c = a.ds.getConnection()) {
+            try(Statement stmt = c.createStatement()) {
+                c.setAutoCommit(false);
+                String sql = "CREATE TABLE MCBBS " +
+                        "(UID INT PRIMARY KEY     NOT NULL," +
+                        " NAME           TEXT    NOT NULL, " +
+                        " credits            INT     NOT NULL," +
+                        "extcredits1 INT," +
+                        "extcredits2 INT," +
+                        "extcredits3 INT," +
+                        "extcredits4 INT," +
+                        "extcredits5 INT," +
+                        "extcredits6 INT," +
+                        "extcredits7 INT," +
+                        "extcredits8 INT," +
+                        "oltime INT," +
+                        "groupid INT," +
+                        "posts INT," +
+                        "threads INT," +
+                        "friends INT," +
+                        "views INT," +
+                        "adminid INT," +
+                        "emailstatus INT," +
+                        "grouptitle TEXT," +
+                        "extgroupids TEXT)";
                 stmt.executeUpdate(sql);
-            }finally {
-                stmt.close();
                 c.commit();
-                c.close();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +44,7 @@ public class sqlite {
     /**
      * 用于向数据库写入数据
      * @param uid uid
-     * @param name 名字（单引号大概要处理成 '' 就可以避免错误了吧
+     * @param name 名字
      * @param credits 积分
      */
     public void insertsql(int uid, String name, int credits,int extcredits1,int extcredits2,
@@ -59,38 +52,32 @@ public class sqlite {
                           int oltime,int groupid,int posts,int threads,int friends,int views,int adminid,
                           int emailstatus,String grouptitle,String extgroupids) {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
-        StringBuilder sql = new StringBuilder("INSERT INTO MCBBS VALUES(");
-        sql.append(uid).append(",");
-        sql.append("'").append(name).append("'").append(",");
-        sql.append(credits).append(",");
-        sql.append(extcredits1).append(",");
-        sql.append(extcredits2).append(",");
-        sql.append(extcredits3).append(",");
-        sql.append(extcredits4).append(",");
-        sql.append(extcredits5).append(",");
-        sql.append(extcredits6).append(",");
-        sql.append(extcredits7).append(",");
-        sql.append(extcredits8).append(",");
-        sql.append(oltime).append(",");
-        sql.append(groupid).append(",");
-        sql.append(posts).append(",");
-        sql.append(threads).append(",");
-        sql.append(friends).append(",");
-        sql.append(views).append(",");
-        sql.append(adminid).append(",");
-        sql.append(emailstatus).append(",");
-        sql.append("'").append(grouptitle).append("'").append(",");
-        sql.append("'").append(extgroupids).append("'").append(");");
-        try {
-            Connection c = a.ds.getConnection();
-            Statement stmt = c.createStatement();
-            c.setAutoCommit(false);
-            try {
-                stmt.executeUpdate(sql.toString());
-            }finally {
-                stmt.close();
+        try(Connection c = a.ds.getConnection()) {
+            try (PreparedStatement ps = c.prepareStatement("INSERT INTO MCBBS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+                c.setAutoCommit(false);
+                ps.setObject(1,uid);
+                ps.setObject(2,name);
+                ps.setObject(3,credits);
+                ps.setObject(4,extcredits1);
+                ps.setObject(5,extcredits2);
+                ps.setObject(6,extcredits3);
+                ps.setObject(7,extcredits4);
+                ps.setObject(8,extcredits5);
+                ps.setObject(9,extcredits6);
+                ps.setObject(10,extcredits7);
+                ps.setObject(11,extcredits8);
+                ps.setObject(12,oltime);
+                ps.setObject(13,groupid);
+                ps.setObject(14,posts);
+                ps.setObject(15,threads);
+                ps.setObject(16,friends);
+                ps.setObject(17,views);
+                ps.setObject(18,adminid);
+                ps.setObject(19,emailstatus);
+                ps.setObject(20,grouptitle);
+                ps.setObject(21,extgroupids);
+                ps.executeUpdate();
                 c.commit();
-                c.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,17 +90,12 @@ public class sqlite {
      * @param intData 储存的数据
      */
     public void setUid(int intData,String uid){
-        try {
-            Connection c = a.ds.getConnection();
-            Statement stmt = c.createStatement();
-            c.setAutoCommit(false);
-            String sql = "UPDATE MCBBS set credits = "+ intData +" where UID="+uid+";";
-            try {
+        try (Connection c = a.ds.getConnection()){
+            try (Statement stmt = c.createStatement()) {
+                c.setAutoCommit(false);
+                String sql = "UPDATE MCBBS set credits = " + intData + " where UID=" + uid + ";";
                 stmt.executeUpdate(sql);
-            }finally {
-                stmt.close();
                 c.commit();
-                c.close();
             }
         }catch (SQLException e) {
             e.printStackTrace();
@@ -128,15 +110,20 @@ public class sqlite {
         try {
             Connection c = a.ds.getConnection();
             Statement stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" );
-            int i = rs.getInt("credits");
-            rs.close();
-            stmt.close();
-            c.close();
-            return i;
+            try {
+                ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" );
+                int i = rs.getInt("credits");
+                rs.close();
+                return i;
+            }finally {
+                stmt.close();
+                c.close();
+            }
         }catch (SQLException e) {
             e.printStackTrace();
             return -1;
         }
     }
 }
+
+
