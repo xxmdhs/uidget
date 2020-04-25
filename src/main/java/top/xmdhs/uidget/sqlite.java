@@ -110,9 +110,7 @@ public class sqlite {
         try(Connection c = a.ds.getConnection()) {
            try (Statement stmt = c.createStatement()){
                try(ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" )) {
-                   int i = rs.getInt("credits");
-                   rs.close();
-                   return i;
+                   return rs.getInt("credits");
                }
            }
         }catch (SQLException e) {
