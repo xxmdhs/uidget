@@ -107,18 +107,14 @@ public class sqlite {
      * @return 返回爬取到的 uid
      */
     public int getUid(String uid){
-        try {
-            Connection c = a.ds.getConnection();
-            Statement stmt = c.createStatement();
-            try {
-                ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" );
-                int i = rs.getInt("credits");
-                rs.close();
-                return i;
-            }finally {
-                stmt.close();
-                c.close();
-            }
+        try(Connection c = a.ds.getConnection()) {
+           try (Statement stmt = c.createStatement()){
+               try(ResultSet rs = stmt.executeQuery( "SELECT * FROM MCBBS WHERE UID="+uid+";" )) {
+                   int i = rs.getInt("credits");
+                   rs.close();
+                   return i;
+               }
+           }
         }catch (SQLException e) {
             e.printStackTrace();
             return -1;
