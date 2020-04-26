@@ -1,97 +1,53 @@
 package top.xmdhs.uidget;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
-import javax.sql.DataSource;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import java.sql.*;
 
 public class a {
-    static Logger logger = Logger.getLogger("LoggerPropreties");
-    static LogManager logManager = LogManager.getLogManager();
-    static DataSource ds;
-    public static void main(String[] args) throws IOException {
-        InputStream in = papapa.class.getResourceAsStream("/logging.properties");
-        logManager.readConfiguration(in);
-        in.close();
-        logManager.addLogger(logger);
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:sqlite:mcbbs.db");
-        config.addDataSourceProperty("connectionTimeout", "1000");
-        config.addDataSourceProperty("idleTimeout", "60000");
-        config.addDataSourceProperty("maximumPoolSize", "10");
-        ds = new HikariDataSource(config);
-        ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(3);
-        exec.scheduleAtFixedRate(new papapa("2147483646", "1", "1075816"), 1000, 500, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483645", "1075817", "2151632"), 2000, 500, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483644", "2151633", "3227448"), 3000, 500, TimeUnit.MILLISECONDS);
-
-    }
-}
-
-class papapa implements Runnable {
-    private final String uid;
-    private final String start;
-    private final String end;
-    sqlite s = new sqlite();
-
-    public papapa(String uid, String start, String end) {
-        this.uid = uid;
-        this.start = start;
-        this.end = end;
-    }
-
-
-    public void run() {
-        int i = s.getUid(uid);
-        if (i == -1) {
-            s.creatSql();
-            s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0", "0");
-        }
-        try {
-            if (i <= Integer.parseInt(end)) {
-                i = s.getUid(uid);
-                URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
-                http h = new http(url);
-                if (h.getJson().equals("1") || !h.testjson(h.getJson()).Charset.equals("UTF-8")) {
-                    a.logger.warning("网络似乎有什么问题");
-                    Thread.sleep(10000);
-                } else {
-                    if (h.json2Class(h.getJson()) == null) {
-                        if(h.getJson().contains("messageval")){
-                        a.logger.warning("此用户大概有什么问题，uid：" + i);
+    public static void main(String[] args){
+        StringBuilder s = new StringBuilder();
+        String type = args[0];
+        try(Connection c = DriverManager.getConnection("jdbc:sqlite:mcbbs.db")) {
+            try(Statement stmt = c.createStatement()) {
+                try (ResultSet rs = stmt.executeQuery( "SELECT * FROM mcbbs ORDER BY credits DESC LIMIT 107;")){
+                    s.append("| 排名 | uid | 用户名 | 积分 | 人气 | 金粒 | 金锭 | 绿宝石 | 下界之星 | 贡献 | 爱心 | 钻石 | 在线时间 | 回帖数 | 主题数 | 好友数 | 空间查看次数 | 用户组 | 扩展用户组 |\n" +
+                            "| - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - | - |\n");
+                    int i = 0;
+                    while (rs.next()){
                         i++;
+                        String uid = rs.getString("UID");
+                        String id = rs.getString("NAME");
+                        String credits = rs.getString("credits");
+                        String extcredits1 = rs.getString("extcredits1");
+                        String extcredits2 = rs.getString("extcredits2");
+                        String extcredits3 = rs.getString("extcredits3");
+                        String extcredits4 = rs.getString("extcredits4");
+                        String extcredits5 = rs.getString("extcredits5");
+                        String extcredits6 = rs.getString("extcredits6");
+                        String extcredits7 = rs.getString("extcredits7");
+                        String extcredits8 = rs.getString("extcredits8");
+                        String oltime = rs.getString("oltime");
+                        String posts = rs.getString("posts");
+                        String threads = rs.getString("threads");
+                        String friends = rs.getString("friends");
+                        String views = rs.getString("views");
+                        String grouptitle = rs.getString("grouptitle").replace("<font color=\"#0099FF\">Lv.Inf 艺术家</font>","艺术家").replace("<font color=\"#946CE6\">电鳗</font>","电鳗").replace("<font color=\"#FF5555\">管理员</font>","管理员");
+                        String extgroupids = rs.getString("extgroupids").replace("<font color=\"#0099FF\">Lv.Inf 艺术家</font>","艺术家").replace("<font color=\"#946CE6\">电鳗</font>","电鳗").replace("<font color=\"#FF5555\">管理员</font>","管理员");
+                        if(Integer.parseInt(uid) >= 2147483641){
+                            i--;
                         }else {
-                            a.logger.warning("网络似乎有什么问题");
-                            Thread.sleep(10000);
+                            s.append("| ").append(i).append(" | ").append(uid).append(" | ").append(id).append(" | ").append(credits).append(" | ").append(extcredits1).append(" | ").append(extcredits2)
+                                    .append(" | ").append(extcredits3).append(" | ").append(extcredits4).append(" | ").append(extcredits5).append(" | ")
+                                    .append(extcredits6).append(" | ").append(extcredits7).append(" | ").append(extcredits8).append(" | ")
+                                    .append(oltime).append(" | ").append(posts).append(" | ").append(threads).append(" | ").append(friends)
+                                    .append(" | ").append(views).append(" | ").append(grouptitle).append(" | ").append(extgroupids).append(" |\n");
                         }
-                    } else {
-                        uidapi u = h.json2Class(h.getJson());
-                        String username = u.Variables.space.username.replace("'", "''");
-                        System.out.println("用户名：" + username + "，uid：" + u.Variables.space.uid);
-                        if (u.Variables.space.group != null) {
-                            s.insertsql(u.Variables.space.uid, username, u.Variables.space.credits, u.Variables.space.extcredits1,
-                                    u.Variables.space.extcredits2, u.Variables.space.extcredits3, u.Variables.space.extcredits4,
-                                    u.Variables.space.extcredits5, u.Variables.space.extcredits6, u.Variables.space.extcredits7,
-                                    u.Variables.space.extcredits8, u.Variables.space.oltime, u.Variables.space.groupid,
-                                    u.Variables.space.posts, u.Variables.space.threads, u.Variables.space.friends,
-                                    u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus, u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
-                        }
-                        i = u.Variables.space.uid;
-                        i++;
+
                     }
-                    s.setUid(i, uid);
+                    System.out.println(s);
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
     }
 }
-
