@@ -5,6 +5,7 @@ import com.google.gson.JsonSyntaxException;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -112,6 +113,11 @@ class uidapi{
               public int emailstatus;
               public int adminid;
               public String extgroupids;
+              public Medals[] medals;
+              static class Medals{
+                  public String name;
+                  public String medalid;
+              }
           }
       }
     }
