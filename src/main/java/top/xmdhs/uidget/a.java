@@ -15,6 +15,7 @@ public class a {
     static Logger logger = Logger.getLogger("LoggerPropreties");
     static LogManager logManager = LogManager.getLogManager();
     static DataSource ds;
+
     public static void main(String[] args) throws IOException {
         InputStream in = papapa.class.getResourceAsStream("/logging.properties");
         logManager.readConfiguration(in);
@@ -51,7 +52,7 @@ class papapa implements Runnable {
         int i = s.getUid(uid);
         if (i == -1) {
             s.creatSql();
-            s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,"0", "0", "0");
+            s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0", "0");
         }
         try {
             if (i <= Integer.parseInt(end)) {
@@ -63,28 +64,22 @@ class papapa implements Runnable {
                     Thread.sleep(10000);
                 } else {
                     if (h.json2Class(h.getJson()) == null) {
-                        if(h.getJson().contains("messageval")){
-                        a.logger.warning("此用户大概有什么问题，uid：" + i);
-                        i++;
-                        }else {
+                        if (h.getJson().contains("messageval")) {
+                            a.logger.warning("此用户大概有什么问题，uid：" + i);
+                            i++;
+                        } else {
                             a.logger.warning("网络似乎有什么问题");
                             Thread.sleep(10000);
                         }
                     } else {
                         uidapi u = h.json2Class(h.getJson());
                         System.out.println("用户名：" + u.Variables.space.username + "，uid：" + u.Variables.space.uid);
-                        if (u.Variables.space.group != null) {
-                            StringBuilder medals = new StringBuilder();
-                            for (int ii = 0 ;ii < u.Variables.space.medals.length;i++){
-                                medals.append(u.Variables.space.medals[ii].name);
-                            }
-                            s.insertsql(u.Variables.space.uid, u.Variables.space.username, u.Variables.space.credits, u.Variables.space.extcredits1,
-                                    u.Variables.space.extcredits2, u.Variables.space.extcredits3, u.Variables.space.extcredits4,
-                                    u.Variables.space.extcredits5, u.Variables.space.extcredits6, u.Variables.space.extcredits7,
-                                    u.Variables.space.extcredits8, u.Variables.space.oltime, u.Variables.space.groupid,
-                                    u.Variables.space.posts, u.Variables.space.threads, u.Variables.space.friends,
-                                    u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus, u.Variables.space.medals.length,medals.toString(), u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
-                        }
+                        s.insertsql(u.Variables.space.uid, u.Variables.space.username, u.Variables.space.credits, u.Variables.space.extcredits1,
+                                u.Variables.space.extcredits2, u.Variables.space.extcredits3, u.Variables.space.extcredits4,
+                                u.Variables.space.extcredits5, u.Variables.space.extcredits6, u.Variables.space.extcredits7,
+                                u.Variables.space.extcredits8, u.Variables.space.oltime, u.Variables.space.groupid,
+                                u.Variables.space.posts, u.Variables.space.threads, u.Variables.space.friends,
+                                u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus, u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
                         i = u.Variables.space.uid;
                         i++;
                     }
