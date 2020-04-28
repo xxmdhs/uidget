@@ -53,7 +53,7 @@ class papapa implements Runnable {
         int i = s.getUid(uid);
         if (i == -1) {
             s.creatSql();
-            s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,"0", "0", "0", "0");
+            s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,"0","0","0", 0, "0", "0");
         }
         try {
             if (i <= Integer.parseInt(end)) {
@@ -84,7 +84,9 @@ class papapa implements Runnable {
                                 u.Variables.space.extcredits5, u.Variables.space.extcredits6, u.Variables.space.extcredits7,
                                 u.Variables.space.extcredits8, u.Variables.space.oltime, u.Variables.space.groupid,
                                 u.Variables.space.posts, u.Variables.space.threads, u.Variables.space.friends,
-                                u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus,medalsint,Medals, u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
+                                u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus,medalsint,Medals,
+                                String.valueOf(u.Variables.space.lastvisit.contains("2020")),u.Variables.space.digestposts,
+                                u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
                         i = u.Variables.space.uid;
                         i++;
                     }

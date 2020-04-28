@@ -67,13 +67,22 @@ public class http {
            return null;
        }
     }
+    public static void main(String[] args) throws MalformedURLException {
+        URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=25" );
+        http h = new http(url);
+       System.out.println(h.getmedals(h.getJson())[0]);
+    }
+
 
     public String[] getmedals(String json){
         Gson gson = new Gson();
         StringJoiner s = new StringJoiner("，");
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonObject = jsonParser.parse(json).getAsJsonObject();
-        if (jsonObject.get("Variables").getAsJsonObject().get("space").getAsJsonObject().get("medals").isJsonArray()){
+       if(jsonObject.get("Variables").getAsJsonObject().get("space").getAsJsonObject().get("medals") == null){
+           return new String[]{"",""};
+       }
+       if (jsonObject.get("Variables").getAsJsonObject().get("space").getAsJsonObject().get("medals").isJsonArray()){
           JsonArray a = jsonObject.get("Variables").getAsJsonObject().get("space").getAsJsonObject().get("medals").getAsJsonArray();
           int i = 0;
           while (i < a.size()){
@@ -129,6 +138,8 @@ class uidapi{
               public int oltime;
               public int groupid;
               public int posts;
+              public String lastvisit;
+              public int digestposts;
               public int threads;
               public Group group;
               static class Group{
