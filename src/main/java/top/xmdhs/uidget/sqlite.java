@@ -57,7 +57,7 @@ public class sqlite {
                           int emailstatus,String medalsint,String medals,String isalive,int digestposts,String grouptitle,String extgroupids) {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
         try(Connection c = a.ds.getConnection()) {
-            try (PreparedStatement ps = c.prepareStatement("INSERT INTO MCBBS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+            try (PreparedStatement ps = c.prepareStatement("INSERT INTO MCBBS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
                 c.setAutoCommit(false);
                 ps.setObject(1,uid);
                 ps.setObject(2,name);
