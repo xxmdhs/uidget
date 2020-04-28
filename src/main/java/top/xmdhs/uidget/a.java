@@ -28,11 +28,11 @@ public class a {
         config.addDataSourceProperty("maximumPoolSize", "10");
         ds = new HikariDataSource(config);
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(5);
-        exec.scheduleAtFixedRate(new papapa("2147483646", "1", "654100"), 1000, 200, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483645", "654100", "1308200"), 2000, 200, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483644", "1308200", "1962300"), 3000, 200, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483643", "1962300", "2616400"), 4000, 200, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483641", "2616400", "3270500"), 5000, 200, TimeUnit.MILLISECONDS);
+        exec.scheduleWithFixedDelay(new papapa("2147483646", "1", "654100"), 1000, 200, TimeUnit.MILLISECONDS);
+        exec.scheduleWithFixedDelay(new papapa("2147483645", "654100", "1308200"), 2000, 200, TimeUnit.MILLISECONDS);
+        exec.scheduleWithFixedDelay(new papapa("2147483644", "1308200", "1962300"), 3000, 200, TimeUnit.MILLISECONDS);
+        exec.scheduleWithFixedDelay(new papapa("2147483643", "1962300", "2616400"), 4000, 200, TimeUnit.MILLISECONDS);
+        exec.scheduleWithFixedDelay(new papapa("2147483641", "2616400", "3270500"), 5000, 200, TimeUnit.MILLISECONDS);
     }
 }
 
