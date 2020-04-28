@@ -27,7 +27,7 @@ public class a {
         config.addDataSourceProperty("idleTimeout", "60000");
         config.addDataSourceProperty("maximumPoolSize", "10");
         ds = new HikariDataSource(config);
-        ScheduledExecutorService exec = Executors.newScheduledThreadPool(3);
+        ScheduledExecutorService exec = Executors.newScheduledThreadPool(5);
         exec.scheduleAtFixedRate(new papapa("2147483646", "1", "654100"), 1000, 100, TimeUnit.MILLISECONDS);
         exec.scheduleAtFixedRate(new papapa("2147483645", "654100", "1308200"), 2000, 100, TimeUnit.MILLISECONDS);
         exec.scheduleAtFixedRate(new papapa("2147483644", "1308200", "1962300"), 3000, 100, TimeUnit.MILLISECONDS);
