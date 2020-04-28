@@ -79,14 +79,16 @@ class papapa implements Runnable {
                         String[] medals = h.getmedals(json);
                         String medalsint = medals[1];
                         String Medals = medals[0];
-                        s.insertsql(u.Variables.space.uid, u.Variables.space.username, u.Variables.space.credits, u.Variables.space.extcredits1,
-                                u.Variables.space.extcredits2, u.Variables.space.extcredits3, u.Variables.space.extcredits4,
-                                u.Variables.space.extcredits5, u.Variables.space.extcredits6, u.Variables.space.extcredits7,
-                                u.Variables.space.extcredits8, u.Variables.space.oltime, u.Variables.space.groupid,
-                                u.Variables.space.posts, u.Variables.space.threads, u.Variables.space.friends,
-                                u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus,medalsint,Medals,
-                                String.valueOf(u.Variables.space.lastvisit.contains("2020")),u.Variables.space.digestposts,
-                                u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
+                       if( u.Variables.space.lastvisit != null) {
+                           s.insertsql(u.Variables.space.uid, u.Variables.space.username, u.Variables.space.credits, u.Variables.space.extcredits1,
+                                   u.Variables.space.extcredits2, u.Variables.space.extcredits3, u.Variables.space.extcredits4,
+                                   u.Variables.space.extcredits5, u.Variables.space.extcredits6, u.Variables.space.extcredits7,
+                                   u.Variables.space.extcredits8, u.Variables.space.oltime, u.Variables.space.groupid,
+                                   u.Variables.space.posts, u.Variables.space.threads, u.Variables.space.friends,
+                                   u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus, medalsint, Medals,
+                                   String.valueOf(u.Variables.space.lastvisit.contains("2020")), u.Variables.space.digestposts,
+                                   u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
+                       }
                         i = u.Variables.space.uid;
                         i++;
                     }
