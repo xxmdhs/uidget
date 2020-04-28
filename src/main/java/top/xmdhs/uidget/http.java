@@ -1,12 +1,15 @@
 package top.xmdhs.uidget;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
+import java.util.Set;
+import java.util.StringJoiner;
 
 
 public class http {
@@ -64,6 +67,30 @@ public class http {
            return null;
        }
     }
+
+    public String[] getmedals(String json){
+        Gson gson = new Gson();
+        StringJoiner s = new StringJoiner("，");
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = jsonParser.parse(json).getAsJsonObject();
+        if (jsonObject.get("Variables").getAsJsonObject().get("space").getAsJsonObject().get("medals").isJsonArray()){
+          JsonArray a = jsonObject.get("Variables").getAsJsonObject().get("space").getAsJsonObject().get("medals").getAsJsonArray();
+          int i = 0;
+          while (i < a.size()){
+              s.add(a.get(i).getAsJsonObject().get("name").getAsString());
+              i++;
+          }
+            return new String[]{s.toString(), String.valueOf(a.size())};
+        }else if(jsonObject.get("Variables").getAsJsonObject().get("space").getAsJsonObject().get("medals").isJsonObject()){
+            Set<Map.Entry<String, JsonElement>> j = jsonObject.get("Variables").getAsJsonObject().get("space").getAsJsonObject().get("medals").getAsJsonObject().entrySet();
+            for (Map.Entry<String, JsonElement> a : j){
+                s.add(a.getValue().getAsJsonObject().get("name").getAsString());
+            }
+            return new String[]{s.toString(), String.valueOf(j.size())};
+        }
+        return new String[]{"",""};
+    }
+
     public TestJson testjson(String json){
         Gson gson = new Gson();
         try {

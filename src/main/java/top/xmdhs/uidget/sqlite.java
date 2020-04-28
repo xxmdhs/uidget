@@ -31,6 +31,8 @@ public class sqlite {
                         "views INT," +
                         "adminid INT," +
                         "emailstatus INT," +
+                        "medalsint INT," +
+                        "medals TEXT," +
                         "grouptitle TEXT," +
                         "extgroupids TEXT)";
                 stmt.executeUpdate(sql);
@@ -50,10 +52,10 @@ public class sqlite {
     public void insertsql(int uid, String name, int credits,int extcredits1,int extcredits2,
                           int extcredits3,int extcredits4,int extcredits5,int extcredits6,int extcredits7,int extcredits8,
                           int oltime,int groupid,int posts,int threads,int friends,int views,int adminid,
-                          int emailstatus,String grouptitle,String extgroupids) {
+                          int emailstatus,String medalsint,String medals,String grouptitle,String extgroupids) {
         //INSERT INTO TABLE_NAME VALUES (value1,value2,value3,...valueN);
         try(Connection c = a.ds.getConnection()) {
-            try (PreparedStatement ps = c.prepareStatement("INSERT INTO MCBBS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
+            try (PreparedStatement ps = c.prepareStatement("INSERT INTO MCBBS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")){
                 c.setAutoCommit(false);
                 ps.setObject(1,uid);
                 ps.setObject(2,name);
@@ -74,8 +76,10 @@ public class sqlite {
                 ps.setObject(17,views);
                 ps.setObject(18,adminid);
                 ps.setObject(19,emailstatus);
-                ps.setObject(20,grouptitle);
-                ps.setObject(21,extgroupids);
+                ps.setObject(20,medalsint);
+                ps.setObject(21,medals);
+                ps.setObject(22,grouptitle);
+                ps.setObject(23,extgroupids);
                 ps.executeUpdate();
                 c.commit();
             }

@@ -28,9 +28,9 @@ public class a {
         config.addDataSourceProperty("maximumPoolSize", "10");
         ds = new HikariDataSource(config);
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(3);
-        exec.scheduleAtFixedRate(new papapa("2147483646", "1", "1075816"), 1000, 500, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483645", "1075817", "2151632"), 2000, 500, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483644", "2151633", "3227448"), 3000, 500, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483646", "1", "1075816"), 1000, 100, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483645", "1075817", "2151632"), 2000, 100, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483644", "2151633", "3227448"), 3000, 100, TimeUnit.MILLISECONDS);
 
     }
 }
@@ -52,19 +52,20 @@ class papapa implements Runnable {
         int i = s.getUid(uid);
         if (i == -1) {
             s.creatSql();
-            s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "0", "0");
+            s.insertsql(Integer.parseInt(uid), "0", Integer.parseInt(start), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,"0", "0", "0", "0");
         }
         try {
             if (i <= Integer.parseInt(end)) {
                 i = s.getUid(uid);
                 URL url = new URL("https://www.mcbbs.net/api/mobile/index.php?module=profile&uid=" + i);
                 http h = new http(url);
-                if (h.getJson().equals("1") || !h.testjson(h.getJson()).Charset.equals("UTF-8")) {
+                String json = h.getJson();
+                if (json.equals("1") || !h.testjson(json).Charset.equals("UTF-8")) {
                     a.logger.warning("网络似乎有什么问题");
                     Thread.sleep(10000);
                 } else {
-                    if (h.json2Class(h.getJson()) == null) {
-                        if (h.getJson().contains("messageval")) {
+                    if (h.json2Class(json) == null) {
+                        if (json.contains("messageval")) {
                             a.logger.warning("此用户大概有什么问题，uid：" + i);
                             i++;
                         } else {
@@ -72,14 +73,17 @@ class papapa implements Runnable {
                             Thread.sleep(10000);
                         }
                     } else {
-                        uidapi u = h.json2Class(h.getJson());
+                        uidapi u = h.json2Class(json);
                         System.out.println("用户名：" + u.Variables.space.username + "，uid：" + u.Variables.space.uid);
+                        String[] medals = h.getmedals(json);
+                        String medalsint = medals[1];
+                        String Medals = medals[0];
                         s.insertsql(u.Variables.space.uid, u.Variables.space.username, u.Variables.space.credits, u.Variables.space.extcredits1,
                                 u.Variables.space.extcredits2, u.Variables.space.extcredits3, u.Variables.space.extcredits4,
                                 u.Variables.space.extcredits5, u.Variables.space.extcredits6, u.Variables.space.extcredits7,
                                 u.Variables.space.extcredits8, u.Variables.space.oltime, u.Variables.space.groupid,
                                 u.Variables.space.posts, u.Variables.space.threads, u.Variables.space.friends,
-                                u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus, u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
+                                u.Variables.space.views, u.Variables.space.adminid, u.Variables.space.emailstatus,medalsint,Medals, u.Variables.space.group.grouptitle, u.Variables.space.extgroupids);
                         i = u.Variables.space.uid;
                         i++;
                     }
