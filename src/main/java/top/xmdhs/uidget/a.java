@@ -28,10 +28,11 @@ public class a {
         config.addDataSourceProperty("maximumPoolSize", "10");
         ds = new HikariDataSource(config);
         ScheduledExecutorService exec = Executors.newScheduledThreadPool(3);
-        exec.scheduleAtFixedRate(new papapa("2147483646", "1", "1075816"), 1000, 100, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483645", "1075817", "2151632"), 2000, 100, TimeUnit.MILLISECONDS);
-        exec.scheduleAtFixedRate(new papapa("2147483644", "2151633", "3227448"), 3000, 100, TimeUnit.MILLISECONDS);
-
+        exec.scheduleAtFixedRate(new papapa("2147483646", "1", "654100"), 1000, 100, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483645", "654100", "1308200"), 2000, 100, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483644", "1308200", "1962300"), 3000, 100, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483643", "1962300", "2616400"), 3000, 100, TimeUnit.MILLISECONDS);
+        exec.scheduleAtFixedRate(new papapa("2147483641", "2616400", "3270500"), 3000, 100, TimeUnit.MILLISECONDS);
     }
 }
 
